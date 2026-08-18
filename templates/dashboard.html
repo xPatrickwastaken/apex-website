@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepper Shakers | Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/styles.css">
+  
+  {% if login_error %}
+    <script>document.body.classList.add('login-error');</script>
+  {% endif %}
+</head>
+<body>
+  <!-- 🔹 DASHBOARD LAYOUT -->
+  <div class="dashboard-layout">
+    
+    <!-- LEFT SIDENAVIGATION -->
+    <nav class="sidebar">
+      <a href="{{ url_for('home') }}" class="{% if current_page == 'home' %}active{% endif %}">🏠 Login</a>
+      <a href="{{ url_for('dashboard') }}" class="{% if current_page == 'dashboard' %}active{% endif %}">📊 Dashboard</a>
+      <a href="{{ url_for('lootpaths') }}" class="{% if current_page == 'lootpaths' %}active{% endif %}">🗺️ Loot Paths</a>
+      <a href="{{ url_for('team_comps') }}" class="{% if current_page == 'team_comps' %}active{% endif %}">⚔️ Team Comps</a>
+      <a href="{{ url_for('map_data') }}" class="{% if current_page == 'map-data' %}active{% endif %}">🌍 Map Data</a>
+      <a href="{{ url_for('gun_data') }}" class="{% if current_page == 'gun-data' %}active{% endif %}">🔫 Gun Data</a>
+      <a href="{{ url_for('socials') }}" class="{% if current_page == 'socials' %}active{% endif %}">👥 Socials</a>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="content-area">
+      {% if current_page == 'dashboard' %}
+        <h2>Dashboard</h2>
+        <p>Welcome to the team intel hub. Navigate left to explore loot routes, comp charts, spawn rates, loadout breakdowns, and social links.</p>
+
+        <div class="quick-cards">
+          <div class="card"><h3>Loot Paths</h3><p>Route optimization</p></div>
+          <div class="card"><h3>Team Comps</h3><p>Roles & Meta</p></div>
+        </div>
+      {% endif %}
+    </main>
+
+  </div>
+</body>
+</html>

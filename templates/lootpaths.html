@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepper Shakers | Loot Paths</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/styles.css">
+</head>
+
+<body class="dashboard-layout">
+
+  <!-- SIDEBAR -->
+  <nav class="sidebar">
+    <a href="{{ url_for('home') }}" class="{% if request.path == '/' %}active{% endif %}">🏠 Login</a>
+    <a href="{{ url_for('dashboard') }}" class="{% if current_page == 'dashboard' %}active{% endif %}">📊 Dashboard</a>
+    <a href="{{ url_for('lootpaths') }}" class="{% if request.path == '/lootpaths' %}active{% endif %}">🗺️ Loot
+      Paths</a>
+    <a href="{{ url_for('team_comps') }}" class="{% if current_page == 'team-comps' %}active{% endif %}">⚔️ Team
+      Comps</a>
+    <a href="{{ url_for('map_data') }}" class="{% if request.path == '/map-data' %}active{% endif %}">🌍 Map Data</a>
+    <a href="{{ url_for('gun_data') }}" class="{% if current_path == 'gun-data' %}active{% endif %}">🔫 Gun Data</a>
+    <a href="{{ url_for('socials') }}" class="{% if request.path == '/socials' %}active{% endif %}">👥 Socials</a>
+  </nav>
+
+  <!-- MAIN CONTENT -->
+  <main class="content-area">
+    <h2>Loot Paths</h2>
+
+    <!-- MAP CARDS GRID (Shows all maps initially) -->
+    <div id="mapCards" class="map-cards-grid"></div>
+
+    <!-- FOCUSED POI INFO PANEL (Placed ABOVE grid for correct visual flow) -->
+    <div id="infoPanel" class="info-panel hidden">
+      <div class="focused-img-wrap">
+        <img id="poiImg" src="">
+        <button id="focus-trigger-btn" class="focus-trigger-btn" aria-label="Focus image">Zoom</button>
+      </div>
+      <h3 id="poiName"></h3>
+      <p id="lootPath" class="loot-path"></p>
+      <button id="closeInfo" class="btn-close">Close</button>
+    </div>
+
+    <!-- POI GRID (Hidden until a map is selected) -->
+    <div id="poiGrid" class="poi-grid hidden"></div>
+  </main>
+
+  <!--<script>-->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const LOOT_DATA = {{ loot_data | tojson }} || {}; 
+    if (!LOOT_DATA || typeof LOOT_DATA !== 'object') return;
+
+
+    const mapCardsContainer = document.getElementById('mapCards');
+    const poiGrid = document.getElementById('poiGrid');
+    const infoPanel = document.getElementById('infoPanel');
+    let activeMapName = '';
+
+    // === FOCUS OVERLAY FUNCTIONS (Top-level scope) ===
+    let focusOverlay = null;
+
+    function createFocusOverlay() {
+      if (focusOverlay) return focusOverlay;
+      focusOverlay = document.createElement('div');
+      focusOverlay.className = 'focus-overlay';
+      focusOverlay.innerHTML = `
+        <button class="focus-close" aria-label="Close image">✕</button>
+        <img id="focusedImg" src="" alt="">`;
+      document.body.appendChild(focusOverlay);
+
+      function dismiss() { focusOverlay.style.display = 'none'; }
+      focusOverlay.addEventListener('click', (e) => {
+        if (e.target === focusOverlay || e.target.classList.contains('focus-close')) dismiss();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && focusOverlay.style.display !== 'none') dismiss();
+      });
+      return focusOverlay;
+    }
+
+    function showFocusedImage(src, altText) {
+      const overlay = createFocusOverlay();
+      const img = document.getElementById('focusedImg');
+      requestAnimationFrame(() => {
+        img.src = src || '';
+        img.alt = altText || '';
+        overlay.style.display = 'flex';
+        setTimeout(() => overlay.classList.add('active'), 8);
+      });
+    }
+
+    function hideFocusOverlay() {
+      focusOverlay?.style.display == 'none';
+      focusOverlay?.classList.remove('active');
+    }
+    // ===========================================================
+
+
+    // === 1. BUILD MAP CARDS ===
+    Object.keys(LOOT_DATA).forEach(name => {
+      const card = document.createElement('button');
+      card.className = 'map-card';
+      card.dataset.map = name;
+      const thumb = LOOT_DATA[name].thumb || '/images/maps/default.png';
+
+      card.innerHTML = `<img src="${thumb}" alt="${name} Map"><span>${name}</span>`;
+      mapCardsContainer.appendChild(card);
+
+      card.onclick = () => {
+        console.log('[MAP] Clicked:', name);
+        hideFocusOverlay(); // Clear focus when switching maps
+
+        if (activeMapName === name) {
+          activeMapName = '';
+          poiGrid.classList.add('hidden');
+          infoPanel.classList.add('hidden');
+          mapCardsContainer.querySelectorAll('.map-card').forEach(c => c.classList.remove('active'));
+          return;
+        }
+
+        activeMapName = name;
+        mapCardsContainer.querySelectorAll('.map-card').forEach(c => 
+          c.classList.toggle('active', c.dataset.map === name)
+        );
+        renderPOIs(name);
+      };
+    });
+
+
+    // === 2. RENDER POI GRID ===
+    function renderPOIs(map) {
+      console.log('[POI] Loading:', map);
+      poiGrid.innerHTML = '';
+      poiGrid.classList.remove('hidden');
+
+      const pois = LOOT_DATA[map]?.pois || [];
+      if (!pois.length) return;
+
+      pois.forEach(poi => { // 🔑 Fixed typo: was 'Pois' before
+        const card = document.createElement('div');
+        card.className = 'poi-card';
+
+        card.dataset.poiId = poi.id;
+        card.dataset.name = poi.name;
+        card.dataset.image = poi.image;
+
+        // Safely format path so it never says "undefined" or "[object Object]"
+        const rawPath = poi.path || [];
+        const formattedPath = Array.isArray(rawPath) ? rawPath.join(' → ') : (rawPath != null ? String(rawPath) : 'No path defined');
+        card.dataset.pathText = formattedPath;
+
+        // Create thumbnail
+        const thumbImg = document.createElement('img');
+        thumbImg.src = poi.image;
+        thumbImg.alt = poi.name;
+        thumbImg.loading = 'lazy';
+        
+        // 🔑 FIX: Explicit dimensions prevent black lines/layout collapse
+        thumbImg.width = 48; 
+        thumbImg.height = 48;
+
+        thumbImg.onerror = function() { this.src = '/images/default-poi.png'; };
+
+        const span = document.createElement('span');
+        span.textContent = poi.name;
+        card.appendChild(thumbImg);
+        card.appendChild(span);
+
+        // ── Card Click ONLY updates info panel (NO focus here) ──
+        thumbImg.onclick = function() {
+          console.log('[POI] Card clicked:', this.dataset.name);
+          
+          const nameEl = document.getElementById('poiName');
+          const pathEl = document.getElementById('lootPath');
+          const panelThumb = document.getElementById('poiImg');
+
+          if (nameEl && pathEl) {
+            requestAnimationFrame(() => {
+              nameEl.textContent = poi.name;
+              pathEl.textContent = poi.path; 
+              infoPanel.classList.remove('hidden');
+              infoPanel.style.display = 'block';
+
+              // Show thumbnail in info panel
+              if (panelThumb) {
+                panelThumb.src = poi.image;
+                panelThumb.alt = poi.name;
+              }
+            });
+          } else {
+            console.error('[LOOT] Info panel elements not found. Check HTML IDs.');
+          }
+        };
+
+        // ✅ CRITICAL: Must stay at this indentation level (outside onclick)
+        poiGrid.appendChild(card); 
+      });
+    }
+
+
+    // === 3. CLOSE PANEL ===
+    function closePanel() { 
+      const el = document.getElementById('infoPanel');
+      if (el) el.classList.add('hidden');
+      else console.warn('[LOOT] Info panel element not found!');
+    }
+
+    const closeBtn = document.getElementById('closeInfo');
+    if (closeBtn) closeBtn.onclick = closePanel;
+
+    document.addEventListener('click', (e) => {
+      const el = document.getElementById('infoPanel');
+      if (el && !el.contains(e.target)) el.classList.add('hidden');
+    });
+
+
+    // === 4. AUTO-LOAD FIRST MAP ===
+    const firstMap = Object.keys(LOOT_DATA)[0];
+    if (firstMap) renderPOIs(firstMap);
+
+    // === FOCUS BUTTON LISTENER (Attached at the very end of IIFE) ===
+    const focusBtn = document.getElementById('focus-trigger-btn');
+    if (focusBtn) {
+      focusBtn.onclick = function() {
+        const imgEl = document.getElementById('poiImg');
+        if (!imgEl.src.trim()) return; // Guard: only open if card was clicked first
+        hideFocusOverlay();
+        showFocusedImage(imgEl.src, imgEl.alt);
+      };
+    }
+  });
+</script>
+
+
+</body>
+
+</html>

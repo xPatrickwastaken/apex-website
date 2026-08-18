@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepper Shakers | Apex Legends Esports Team</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  
+  <!-- 🔗 NEW: External CSS -->
+  <link rel="stylesheet" href="static/styles.css">
+
+  {% if login_error %}
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const logo = document.getElementById('team-logo');
+        logo.style.animation = 'fadeIn 0.8s ease-out forwards';
+      });
+    </script>
+  {% endif %}
+</head>
+<body>
+  <main class="app-container">
+    <!-- Replace with your actual logo image if you have one -->
+    <div class="logo" id="team-logo">
+      <img src="static/images/branding/Stacked Logo/Icons/PNG files/icon - 2.png" alt="Pepper Shakers Logo">
+    </div>
+    <h1>Pepper Shakers</h1>
+    <p class="tagline">Apex Legends | Team Portal</p>
+
+    {% if login_error %}
+      <div class="message">{{ login_error }}</div>
+    {% endif %}
+
+    <form action="{{ url_for('handle_login') }}" method="POST" class="login-card">
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter team password" required autofocus>
+      </div>
+      <button type="submit"></button>
+    </form>
+
+    <p class="footer">Internal Use Only • EST. 2026</p>
+  </main>
+</body>
+</html>
+<!-- 🔑 RANDOM BUTTON MESSAGE SCRIPT -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.querySelector('.login-card button');
+    
+    // Fun messages to rotate through
+    const funnyMessages = [
+      'Unleash the Beast',
+      'LEBROOOOON',
+      'Unseal the Ancient Texts',
+      'W Data-mining?',
+      'xyzDumbass more like',
+      'Enter',
+      'Someone needs a lootpath...',
+      'twitch.tv/xpatrick__',
+      'twitch.tv/xyzLuxe',
+      'twitch.tv/ionsingularity__',
+      'Thank you Patrick, *they all say*'
+    ];
+
+    // Pick a random message and apply it
+    const randomMsg = funnyMessages[Math.floor(Math.random() * funnyMessages.length)];
+    btn.textContent = randomMsg;
+    
+    // Optional: subtle pulse effect on load so users notice the change
+    btn.style.animation = 'buttonPulse 0.6s ease-out forwards';
+  });
+</script>
+
+<style>
+  @keyframes buttonPulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.03); filter: brightness(1.2); }
+    100% { transform: scale(1); filter: brightness(1); }
+  }
+</style>
