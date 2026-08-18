@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for, session, c
 
 app = Flask(__name__)
 # ⚠️ Change this in production to a strong random string!
-app.secret_key = 'replace-with-strong-random-string'  
-VALID_PASSWORD = "apex123!"  # 🔐 Change this to your actual team password
+app.secret_key = 'F9pU?)i@jg-6qa|ea=8kz&o7UR7h[*YF'  
+VALID_PASSWORD = "xyzlebron"  # 🔐 Change this to your actual team password
 import json
 from datetime import datetime
 
