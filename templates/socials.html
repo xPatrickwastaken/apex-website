@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepper Shakers | Socials</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/styles.css">
+</head>
+<body class="dashboard-layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <a href="{{ url_for('home') }}" class="{% if request.path == '/' %}active{% endif %}">🏠 Login</a>
+  <a href="{{ url_for('dashboard') }}" class="{% if current_page == 'dashboard' %}active{% endif %}">📊 Dashboard</a>
+  <a href="{{ url_for('lootpaths') }}" class="{% if request.path == '/lootpaths' %}active{% endif %}">🗺️ Loot Paths</a>
+  <a href="{{ url_for('team_comps') }}" class="{% if current_page == 'team-comps' %}active{% endif %}">⚔️ Team Comps</a>
+  <a href="{{ url_for('map_data') }}" class="{% if request.path == '/map-data' %}active{% endif %}">🌍 Map Data</a>
+  <a href="{{ url_for('gun_data') }}" class="{% if current_path == 'gun-data' %}active{% endif %}">🔫 Gun Data</a>
+  <a href="{{ url_for('socials') }}" class="{% if request.path == '/socials' %}active{% endif %}">👥 Socials</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<main class="content-area">
+  <h2>Socials</h2>
+
+  <!-- PLAYER 1 -->
+  <div class="player-card">
+    <div class="player-avatar">🎮</div>
+    <div class="player-name">xyzLuxe</div>
+    <span class="player-class">Fragger</span>
+    <div class="stats-grid">
+      <div class="stat-item"><div class="stat-label">K/D Ratio</div><div class="stat-value">3.4 : 1.2</div></div>
+      <div class="stat-item"><div class="stat-label">Map Control</div><div class="stat-value">87%</div></div>
+      <div class="stat-item"><div class="stat-label">Objective Wins</div><div class="stat-value">142</div></div>
+    </div>
+    <span class="status-badge online">● Online</span>
+  </div>
+
+  <!-- PLAYER 2 -->
+  <div class="player-card">
+    <div class="player-avatar">🔫</div>
+    <div class="player-name">IonSingularity</div>
+    <span class="player-class">Anchor</span>
+    <div class="stats-grid">
+      <div class="stat-item"><div class="stat-label">Headshots</div><div class="stat-value">89%</div></div>
+      <div class="stat-item"><div class="stat-label">Long Range</div><div class="stat-value">94%</div></div>
+      <div class="stat-item"><div class="stat-label">Map Control</div><div class="stat-value">73%</div></div>
+    </div>
+    <span class="status-badge offline">● Offline</span>
+  </div>
+
+  <!-- PLAYER 3 -->
+  <div class="player-card">
+    <div class="player-avatar">🛡️</div>
+    <div class="player-name">Patrick</div>
+    <span class="player-class">IGL</span>
+    <div class="stats-grid">
+      <div class="stat-item"><div class="stat-label">Revives</div><div class="stat-value">312</div></div>
+      <div class="stat-item"><div class="stat-label">Healing Output</div><div class="stat-value">4.2k</div></div>
+      <div class="stat-item"><div class="stat-label">Map Control</div><div class="stat-value">68%</div></div>
+    </div>
+    <span class="status-badge online">● Online</span>
+  </div>
+
+</main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('[Socials] Page loaded successfully.');
+  });
+</script>
+
+</body>
+</html>
