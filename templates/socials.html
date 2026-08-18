@@ -12,7 +12,7 @@
 
 <!-- SIDEBAR -->
 <nav class="sidebar">
-  <a href="{{ url_for('home') }}" class="{% if request.path == '/' %}active{% endif %}">🏠 Home</a>
+  <a href="{{ url_for('home') }}" class="{% if request.path == '/' %}active{% endif %}">🏠 Login</a>
   <a href="{{ url_for('dashboard') }}" class="{% if current_page == 'dashboard' %}active{% endif %}">📊 Dashboard</a>
   <a href="{{ url_for('lootpaths') }}" class="{% if request.path == '/lootpaths' %}active{% endif %}">🗺️ Loot Paths</a>
   <a href="{{ url_for('team_comps') }}" class="{% if current_page == 'team-comps' %}active{% endif %}">⚔️ Team Comps</a>
@@ -27,41 +27,38 @@
 
   <!-- PLAYER 1 -->
   <div class="player-card">
-    <div class="player-avatar">🎮</div>
-    <div class="player-name">NeoViper</div>
-    <span class="player-class">Assault Rifle Specialist</span>
+    <img src="static/images/pfps/luxe.jpg" alt="xyzLuxe pfp" class="player-avatar">
+    <div class="player-name">xyzLuxe</div>
+    <span class="player-class">Fragger</span>
     <div class="stats-grid">
-      <div class="stat-item"><div class="stat-label">K/D Ratio</div><div class="stat-value">3.4 : 1.2</div></div>
-      <div class="stat-item"><div class="stat-label">Map Control</div><div class="stat-value">87%</div></div>
-      <div class="stat-item"><div class="stat-label">Objective Wins</div><div class="stat-value">142</div></div>
+      <div class="social-item"><div class="social-label">Twitter</div><div class="social-value"><a href="https://twitter.com/xyzLuxe" target="_blank">twitter.com/xyzLuxe</a></div></div>
+      <div class="social-item"><div class="social-label">Twitch</div><div class="social-value"><a href="https://twitch.tv/xyzLuxe" target="_blank">twitch.tv/xyzLuxe</a></div></div>
+      <div class="social-item"><div class="social-label">Youtube</div><div class="social-value"><a href="https://www.youtube.com/@xyzLuxe" target="_blank">youtube.com/@xyzLuxe</a></div></div>
     </div>
-    <span class="status-badge online">● Online</span>
   </div>
 
   <!-- PLAYER 2 -->
   <div class="player-card">
-    <div class="player-avatar">🔫</div>
-    <div class="player-name">ShadowStriker</div>
-    <span class="player-class">Sniper & Tracker</span>
+    <img src="static/images/pfps/ion.jpg" alt="ionSingularity pfp" class="player-avatar">
+    <div class="player-name">ionSingularity</div>
+    <span class="player-class">Anchor</span>
     <div class="stats-grid">
-      <div class="stat-item"><div class="stat-label">Headshots</div><div class="stat-value">89%</div></div>
-      <div class="stat-item"><div class="stat-label">Long Range</div><div class="stat-value">94%</div></div>
-      <div class="stat-item"><div class="stat-label">Map Control</div><div class="stat-value">73%</div></div>
+      <div class="social-item"><div class="social-label">Twitter</div><div class="social-value"><a href="https://twitter.com/ionSingularity" target="_blank">twitter.com/ionSingularity</a></div></div>
+      <div class="social-item"><div class="social-label">Twitch</div><div class="social-value"><a href="https://twitch.tv/ionSingularity" target="_blank">twitch.tv/ionSingularity</a></div></div>
+      <div class="social-item"><div class="social-label">TikTok</div><div class="social-value"><a href="https://www.tiktok.com/@ionsingularity_" target="_blank">tiktok.com/@ionsingularity_</a></div></div>
     </div>
-    <span class="status-badge offline">● Offline</span>
   </div>
 
   <!-- PLAYER 3 -->
   <div class="player-card">
-    <div class="player-avatar">🛡️</div>
-    <div class="player-name">IronGuardian</div>
-    <span class="player-class">Support & Medics</span>
+    <img src="static/images/pfps/patrick.jpg" alt="Patrick pfp" class="player-avatar">
+    <div class="player-name">Patrick</div>
+    <span class="player-class">IGL</span>
     <div class="stats-grid">
-      <div class="stat-item"><div class="stat-label">Revives</div><div class="stat-value">312</div></div>
-      <div class="stat-item"><div class="stat-label">Healing Output</div><div class="stat-value">4.2k</div></div>
-      <div class="stat-item"><div class="stat-label">Map Control</div><div class="stat-value">68%</div></div>
+      <div class="social-item"><div class="social-label">Twitter</div><div class="social-value"><a href="https://twitter.com/xPatrick7" target="_blank">twitter.com/xPatrick7</a></div></div>
+      <div class="social-item"><div class="social-label">Twitch</div><div class="social-value"><a href="https://twitch.tv/xPatrick7" target="_blank">twitch.tv/xPatrick7</a></div></div>
+      <div class="social-item"><div class="social-label">Youtube</div><div class="social-value"><a href="https://www.youtube.com/@xPatrick7" target="_blank">youtube.com/@xPatrick7</a></div></div>
     </div>
-    <span class="status-badge online">● Online</span>
   </div>
 
 </main>
