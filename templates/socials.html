@@ -7,11 +7,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="static/styles.css">
 </head>
+
 <body class="dashboard-layout">
 
 <!-- SIDEBAR -->
 <nav class="sidebar">
-  <a href="{{ url_for('home') }}" class="{% if request.path == '/' %}active{% endif %}">🏠 Login</a>
+  <a href="{{ url_for('home') }}" class="{% if request.path == '/' %}active{% endif %}">🏠 Home</a>
   <a href="{{ url_for('dashboard') }}" class="{% if current_page == 'dashboard' %}active{% endif %}">📊 Dashboard</a>
   <a href="{{ url_for('lootpaths') }}" class="{% if request.path == '/lootpaths' %}active{% endif %}">🗺️ Loot Paths</a>
   <a href="{{ url_for('team_comps') }}" class="{% if current_page == 'team-comps' %}active{% endif %}">⚔️ Team Comps</a>
@@ -27,8 +28,8 @@
   <!-- PLAYER 1 -->
   <div class="player-card">
     <div class="player-avatar">🎮</div>
-    <div class="player-name">xyzLuxe</div>
-    <span class="player-class">Fragger</span>
+    <div class="player-name">NeoViper</div>
+    <span class="player-class">Assault Rifle Specialist</span>
     <div class="stats-grid">
       <div class="stat-item"><div class="stat-label">K/D Ratio</div><div class="stat-value">3.4 : 1.2</div></div>
       <div class="stat-item"><div class="stat-label">Map Control</div><div class="stat-value">87%</div></div>
@@ -40,8 +41,8 @@
   <!-- PLAYER 2 -->
   <div class="player-card">
     <div class="player-avatar">🔫</div>
-    <div class="player-name">IonSingularity</div>
-    <span class="player-class">Anchor</span>
+    <div class="player-name">ShadowStriker</div>
+    <span class="player-class">Sniper & Tracker</span>
     <div class="stats-grid">
       <div class="stat-item"><div class="stat-label">Headshots</div><div class="stat-value">89%</div></div>
       <div class="stat-item"><div class="stat-label">Long Range</div><div class="stat-value">94%</div></div>
@@ -53,8 +54,8 @@
   <!-- PLAYER 3 -->
   <div class="player-card">
     <div class="player-avatar">🛡️</div>
-    <div class="player-name">Patrick</div>
-    <span class="player-class">IGL</span>
+    <div class="player-name">IronGuardian</div>
+    <span class="player-class">Support & Medics</span>
     <div class="stats-grid">
       <div class="stat-item"><div class="stat-label">Revives</div><div class="stat-value">312</div></div>
       <div class="stat-item"><div class="stat-label">Healing Output</div><div class="stat-value">4.2k</div></div>
@@ -66,9 +67,9 @@
 </main>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('[Socials] Page loaded successfully.');
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  console.log('[Socials] Page loaded.');
+});
 </script>
 
 </body>

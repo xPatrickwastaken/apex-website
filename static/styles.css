@@ -22,30 +22,26 @@ body {
 }
 
 /* =========================================
-   SIDEBAR LAYOUT
+   DASHBOARD LAYOUT
    ========================================== */
-.sidebar {
-  width: 240px; background: var(--surface); border-right: 1px solid var(--border);
-  padding: 2rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; overflow-y: auto; position: fixed; top: 0; left: 0; height: 100vh; z-index: 50;
-}
+.dashboard-layout { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; background-color: var(--bg-color); color: #fff; }
 
+/* =========================================
+   SIDEBAR
+   ========================================== */
 .sidebar a {
   color: var(--text-secondary); text-decoration: none; padding: 0.85rem 1rem; border-radius: 10px; font-size: 0.95rem; transition: all 0.2s ease; display: flex; align-items: center; gap: 0.75rem;
 }
-
 .sidebar a:hover, .sidebar a.active { color: var(--text-primary); background: var(--surface-hover); }
 
-.icon { font-size: 1.4rem; min-width: 24px; text-align: center; }
-
 /* =========================================
-   MAIN CONTENT & LAYOUT
+   MAIN CONTENT
    ========================================== */
-.dashboard-layout { display: grid; grid-template-columns: 260px 1fr; min-height: 100vh; background-color: var(--bg-color); color: #fff; }
-.content-area { padding: 2rem; overflow-y: auto; min-height: calc(100vh - 260px); background: var(--bg-color); }
-.content-area h2 { margin-bottom: 1.5rem; font-size: 1.8rem; letter-spacing: -0.5px; color: #fff; }
+.content-area { padding: 2rem; overflow-y: auto; min-height: calc(100vh - 260px); }
+.content-area h2 { margin-bottom: 1.5rem; font-size: 1.8rem; color: #fff; }
 
 /* =========================================
-   MAP CARDS GRID (Existing)
+   MAP CARDS
    ========================================== */
 .map-cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1rem; margin-bottom: 1.5rem; }
 
@@ -56,83 +52,48 @@ body {
 
 /* FOCUSED STATE */
 .map-card.active { grid-column: span 1; border-color: #6c63ff !important; background: #1a1a1a; box-shadow: 0 4px 25px rgba(108,99,255,0.3); }
+
+/* COMPACT STATE FOR NON-ACTIVE MAPS --> */
 .map-card:not(.active) { transform: scale(0.92); opacity: 0.65; }
 
 .map-card img { width: 100%; height: auto; aspect-ratio: 16/9; border-radius: 10px; transition: transform 0.3s ease; object-fit: cover; margin-bottom: 0.5rem; }
 .map-card:hover img, .map-card.active img { transform: scale(1.04); }
 
 /* =========================================
-   POI GRID & CARDS (Existing)
+   POI GRID & CARDS
    ========================================== */
-.poi-grid { 
-  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; padding: 1rem; background: #121212; border-radius: 14px; max-height: calc(100vh - 350px); overflow-y: auto;
-}
+.poi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1rem; padding: 1rem; background: #121212; border-radius: 14px; max-height: calc(100vh - 350px); overflow-y: auto; }
 .hidden { display: none !important; }
 
-.poi-card {
-  background: transparent; border: none; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.5rem;
-}
+.poi-card { background: transparent; border: none; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.3rem; padding: 0.5rem; }
 .poi-card:hover { transform: translateY(-3px); box-shadow: inset 0 4px 16px rgba(108,99,255,0.15); }
 .poi-card img { width: 85%; height: auto; aspect-ratio: 16/9; object-fit: cover; border-radius: 8px; margin-bottom: 0.4rem; }
 .poi-card span { font-size: 0.85rem; color: #888888; text-align: center; word-break: break-all; flex-shrink: 0; }
 
 /* =========================================
-   FOCUSED POI VIEW OVERLAY (Existing)
+   FOCUSED POI INFO PANEL
    ========================================== */
 .info-panel { 
   background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem; width: 90%; max-width: 800px; margin: 0 auto 2rem auto; box-shadow: 0 12px 40px rgba(0,0,0,0.6); z-index: 10; position: relative;
 }
 
-.focused-img-wrap {
-  width: 100%; max-width: 580px; margin: 0 auto 1rem; border-radius: 12px; overflow: hidden; background: #0a0a0a;
+.focused-img-wrap { 
+  width: 100%; max-width: 580px; margin: 0 auto 1rem; border-radius: 12px; overflow: hidden; background: #0a0a0a; 
 }
 
-.focused-img-wrap img {
+.focused-img-wrap img { 
   width: 100%; height: auto !important; display: block; 
 }
 
 .info-panel h3 { font-size: 1.4rem; margin-bottom: 0.25rem; color: #fff; text-align: left; }
-.loot-path { color: #888888; line-height: 1.7; font-size: 0.95rem; white-space: pre-wrap; background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); min-height: 60px; }
+.loot-path { 
+  color: #888888; line-height: 1.7; font-size: 0.95rem; white-space: pre-wrap; background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; border: 1px solid var(--border); min-height: 60px; 
+}
 
 .btn-close {
   width: 100%; padding: 0.75rem; margin-top: 1rem; background: transparent; border: 1px solid var(--border); color: #888888; border-radius: 8px; font-family: inherit; font-size: 0.95rem; cursor: pointer; transition: all 0.2s ease;
 }
 .btn-close:hover { background: #1a1a1a; border-color: #6c63ff; color: #fff; }
-
-/* =========================================
-   FOCUS BUTTON & OVERLAY (NEW)
-   ========================================== */
-.focus-overlay {
-  position: fixed; inset: 0; z-index: 9999;
-  background: rgba(15, 23, 42, 0.88); display: none;
-  align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.2s ease-in-out;
-}
-
-.focus-overlay.active {
-  display: flex; opacity: 1;
-}
-
-.focus-overlay img {
-  max-width: 94vw; max-height: 85vh; object-fit: contain; border-radius: 8px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); cursor: pointer;
-}
-
-.focus-close {
-  position: absolute; top: 20px; right: 32px;
-  background: rgba(255,255,255,.95); border: none; width: 46px; height: 46px; font-size: 28px; cursor: pointer; border-radius: 50%; color: #1e293b; z-index: 10;
-}
-
-.focus-close:hover { background: #fff; transform: scale(1.05); }
-
-/* Focus Trigger Button (Layered behind lootpath) */
-.focus-trigger-btn {
-  position: absolute; bottom: 8px; right: 8px;
-  background: rgba(30, 41, 59, 0.7); color: #e2e8f0; border: none;
-  width: 40px; height: 40px; font-size: 16px; cursor: pointer;
-  border-radius: 6px; display:flex; align-items:center; justify-content:center;
-  transition: background 0.2s, transform 0.15s; z-index: 20;
-}
-
-.focus-trigger-btn:hover { background: rgba(96, 165, 250, 0.8); transform: scale(1.05); }
 
 /* =========================================
    RESPONSIVE & UTILITIES
@@ -142,10 +103,62 @@ body {
   .sidebar { border-right: none; border-bottom: 1px solid var(--border); padding: 1.5rem; order: -1; width: 100%; }
 }
 
-.hidden { display: none !important; }
-
-/* Google Images-style caption for focus overlay */
-.focus-caption {
-  position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
-  color: #fff; font-size: 16px; text-align: center; max-width: 80vw; line-height: 1.4;
+/* =========================================
+   FOCUS OVERLAY (Google Images Style)
+   ========================================== */
+.focus-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(15, 23, 42, 0.88); display: none;
+  align-items: center; justify-content: center; overflow: hidden; transition: opacity 0.15s ease-in-out;
 }
+
+.focus-overlay.active { display: flex; opacity: 1; }
+
+.focus-overlay img { 
+  max-width: 94vw; max-height: 85vh; object-fit: contain; border-radius: 8px; box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4); cursor: pointer; 
+}
+
+.focus-close {
+  position: absolute; top: 20px; right: 32px;
+  background: rgba(255,255,255,.95); border: none; width: 46px; height: 46px; font-size: 28px; cursor: pointer; border-radius: 50%; color: #1e293b; z-index: 10;
+}
+
+.focus-close:hover { background: #fff; transform: scale(1.05); }
+
+/* =========================================
+   FOCUS TRIGGER BUTTON
+   ========================================== */
+.focus-trigger-btn {
+  position: absolute; bottom: 8px; right: 8px;
+  background: rgba(30, 41, 59, 0.7); color: #e2e8f0; border: none; width: 40px; height: 40px; font-size: 16px; cursor: pointer;
+  border-radius: 6px; display:flex; align-items:center; justify-content:center; transition: background 0.2s, transform 0.15s; z-index: 20;
+}
+
+.focus-trigger-btn:hover { background: rgba(96, 165, 250, 0.8); transform: scale(1.05); }
+
+/* =========================================
+   PLAYER CARDS (Socials Page)
+   ========================================== */
+.player-card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; text-align: center; transition: transform 0.2s, box-shadow 0.2s; backdrop-filter: blur(10px);
+}
+.player-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.35); }
+
+.player-avatar { 
+  width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #60a5fa, #8b5cf6); margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; font-size: 26px; color: white; 
+}
+
+.player-name { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.25rem; color: var(--text-primary); }
+.player-class { display: inline-block; background: rgba(96, 165, 250, 0.12); color: var(--accent); font-size: 0.85rem; padding: 4px 12px; border-radius: 20px; margin-bottom: 1.25rem; }
+
+.stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.25rem; }
+.stat-item { background: rgba(255,255,255,0.03); padding: 0.85rem; border-radius: 8px; border: 1px solid var(--border); }
+.stat-label { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 0.25rem; }
+.stat-value { font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+
+.status-badge { display: inline-block; padding: 4px 10px; border-radius: 12px; font-size: 0.8rem; margin-top: 0.75rem; }
+.online { background: rgba(34, 197, 94, 0.15); color: #4ade80; }
+.offline { background: rgba(248, 113, 113, 0.15); color: #f87171; }
+
+/* Reset/Override */
+.hidden { display: none !important; }
